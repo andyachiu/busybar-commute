@@ -11,7 +11,8 @@
 
 #define SNAPSHOT_A EXT_PATH("user_assets/commute-bar/events-a.bin")
 #define SNAPSHOT_B EXT_PATH("user_assets/commute-bar/events-b.bin")
-#define FRONT_SCROLL_SPEED 20
+/* BUSY's label helper uses pixels per minute: 1200 px/min = 20 px/sec. */
+#define FRONT_SCROLL_SPEED 1200
 
 typedef struct {
   Gui *gui;
