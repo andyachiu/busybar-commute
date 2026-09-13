@@ -11,8 +11,7 @@
 
 #define SNAPSHOT_A EXT_PATH("user_assets/commute-bar/events-a.bin")
 #define SNAPSHOT_B EXT_PATH("user_assets/commute-bar/events-b.bin")
-/* BUSY's label helper uses pixels per minute: 1200 px/min = 20 px/sec. */
-#define FRONT_SCROLL_SPEED 1200
+#define FRONT_SCROLL_SPEED 20
 
 typedef struct {
   Gui *gui;
@@ -20,7 +19,8 @@ typedef struct {
   EventSnapshot snapshot;
   unsigned selected;
   bool details;
-  Label *front;
+  Label *front_title;
+  Label *front_timing;
   Label *back;
   AnimPlayer *icon;
   char icon_kind[16];
@@ -72,7 +72,8 @@ static void load_snapshot(Browser *app) {
 static void render(Browser *app) {
   with_gui(app->gui, {
     if (!app->snapshot.count) {
-      label_set_text(app->front, "EVENTS");
+      label_set_text(app->front_title, "EVENTS");
+      label_set_text(app->front_timing, "NO CACHE");
       label_set_text(app->back,
                      "Upcoming Events\nNo cached events\nBack: Apps menu");
     } else {
@@ -80,7 +81,8 @@ static void render(Browser *app) {
       time_t now = time_get_timestamp();
       bool stale =
           now < app->snapshot.fetched || now - app->snapshot.fetched > 3600;
-      label_set_text_fmt(app->front, "%s - %s", row->title, row->timing);
+      label_set_text(app->front_title, row->title);
+      label_set_text(app->front_timing, row->timing);
       set_icon(app, row->kind);
       if (app->details) {
         label_set_text_fmt(
@@ -125,12 +127,21 @@ int32_t upcoming_events_entry(void *argument) {
     app->icon =
         anim_player_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdFront));
     widget_set_size(anim_player_get_base(app->icon), 72, 16);
-    app->front =
+    app->front_title =
         label_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdFront));
-    widget_set_pos(label_get_base(app->front), 18, 0);
-    widget_set_size(label_get_base(app->front), 54, 16);
-    label_set_long_content_mode(app->front, LabelLongContentModeScrollCircular);
-    label_set_long_content_anim_speed(app->front, FRONT_SCROLL_SPEED);
+    widget_set_pos(label_get_base(app->front_title), 18, 0);
+    widget_set_size(label_get_base(app->front_title), 54, 8);
+    label_set_text_font_size(app->front_title, LabelFontSizeSmall);
+    label_set_long_content_mode(app->front_title, LabelLongContentModeScrollCircular);
+    label_set_long_content_anim_speed(app->front_title, FRONT_SCROLL_SPEED);
+    app->front_timing =
+        label_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdFront));
+    widget_set_pos(label_get_base(app->front_timing), 18, 8);
+    widget_set_size(label_get_base(app->front_timing), 54, 8);
+    label_set_text_font_size(app->front_timing, LabelFontSizeSmall);
+    label_set_long_content_mode(app->front_timing,
+                                LabelLongContentModeScrollCircular);
+    label_set_long_content_anim_speed(app->front_timing, FRONT_SCROLL_SPEED);
     app->back = label_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdBack));
     widget_set_size(label_get_base(app->back), 160, 80);
     label_set_text_font_size(app->back, LabelFontSizeSmall);
@@ -167,7 +178,8 @@ int32_t upcoming_events_entry(void *argument) {
   with_gui(app->gui, {
     gui_layer_remove_input_callback(gui_get_layer(app->gui, GuiLayerIdMain),
                                     input_callback);
-    label_free(app->front);
+    label_free(app->front_title);
+    label_free(app->front_timing);
     anim_player_free(app->icon);
     label_free(app->back);
   });
