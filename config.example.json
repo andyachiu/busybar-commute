@@ -1,0 +1,23 @@
+{
+  "origin": "YOUR OFFICE ADDRESS",
+  "destination": "YOUR HOME ADDRESS",
+  "departure": "16:15",
+  "deadline": "17:00",
+  "arrival_cushion_minutes": 10,
+  "office_exit_minutes": 5,
+  "earliest_departure": "15:15",
+  "heads_up_minutes": 15,
+  "arrival_buffer_minutes": 120,
+  "game_duration_minutes": 180,
+  "exit_buffer_minutes": 60,
+  "event_warning_minutes": 15,
+  "cache_max_age_minutes": 60,
+  "commute_weekdays": [0, 1, 2, 3, 4],
+  "monitor_start": "09:00",
+  "advance_notices": true,
+  "native_snapshot_enabled": false,
+  "lunch_animation_verified": false,
+  "baseball_animation_verified": false,
+  "event_icons_verified": [],
+  "traffic_enabled": false
+}

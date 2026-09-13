@@ -1,0 +1,25 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Private settings, credentials, and local output
+config.local.json
+*.token
+*.key
+*.pem
+.env
+.env.*
+data/
+
+# Generated native artifacts and firmware checkouts
+native/build/
+*.bin
+*.dfu
+busybar-firmware/
+
+# Cloud deployment state
+deployment.json
+.gcloud/

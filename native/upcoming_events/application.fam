@@ -1,0 +1,10 @@
+App(
+    appid="upcoming_events",
+    name="Upcoming Events",
+    apptype=FlipperAppType.APP,
+    order=21,
+    entry_point="upcoming_events_entry",
+    requires=["gui", "apps_menu", "storage", "time"],
+    stack_size=4 * 1024,
+    targets=["f20", "f21", "f22"],
+)

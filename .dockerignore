@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!requirements.txt
+!commutebar/
+!commutebar/*.py
+commutebar/__pycache__/

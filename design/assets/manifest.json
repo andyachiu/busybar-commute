@@ -1,0 +1,97 @@
+{
+  "converter": "busyshow 0.1.0",
+  "hardware_verified": false,
+  "assets": [
+    {
+      "file": "baseball-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 10,
+      "encoded_frames": 9,
+      "display_frames": 32,
+      "duration_seconds": 3.2,
+      "bytes": 3066,
+      "sha256": "18ade3aaa4c6bc717e324ee8300c9c476a5263a98d0c5450408d9562da34c59b",
+      "source_gif": "baseball-background.gif"
+    },
+    {
+      "file": "basketball-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 10,
+      "encoded_frames": 9,
+      "display_frames": 32,
+      "duration_seconds": 3.2,
+      "bytes": 4604,
+      "sha256": "d000652169573ef51e29c1a2a9619f2aee8b07fd1b8ff11f41a790b5c766358e",
+      "source_gif": "basketball-background.gif"
+    },
+    {
+      "file": "event-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 5,
+      "encoded_frames": 4,
+      "display_frames": 16,
+      "duration_seconds": 3.2,
+      "bytes": 1017,
+      "sha256": "30ec34317f23800abd9a9bfd3063887e57b95403fa9ee39a5afaab5cf518cfd7",
+      "source_gif": "event-background.gif"
+    },
+    {
+      "file": "convention-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 5,
+      "encoded_frames": 5,
+      "display_frames": 16,
+      "duration_seconds": 3.2,
+      "bytes": 1697,
+      "sha256": "cb3ba2b2edf55c198b58b08d71ab4ae6de2103c520502c1fede29df8a70d14b5",
+      "source_gif": "convention-background.gif"
+    },
+    {
+      "file": "car-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 10,
+      "encoded_frames": 32,
+      "display_frames": 32,
+      "duration_seconds": 3.2,
+      "bytes": 5679,
+      "sha256": "e21adc3ed3d92f02ec593a606978ce6f12abeba1b9bd7a000121b4da01cd4ad3",
+      "source_gif": "car-background.gif"
+    },
+    {
+      "file": "detour-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 10,
+      "encoded_frames": 32,
+      "display_frames": 32,
+      "duration_seconds": 3.2,
+      "bytes": 8030,
+      "sha256": "b0384e7a6887add7cbc5b030da603d68309a09bd3fcbefafa2d0c3678a36f1c4",
+      "source_gif": "detour-background.gif"
+    },
+    {
+      "file": "lunch-bowl-background.anim",
+      "width": 72,
+      "height": 16,
+      "format": "bicycle0/BGR888",
+      "fps": 10,
+      "encoded_frames": 32,
+      "display_frames": 32,
+      "duration_seconds": 3.2,
+      "bytes": 7621,
+      "sha256": "dbb05c3b9b85c257992f9faf8f141d39ade1d39149a58cbddcf2fa2efd5559c5",
+      "source_gif": "lunch-bowl-background.gif"
+    }
+  ]
+}
