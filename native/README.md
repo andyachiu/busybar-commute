@@ -7,7 +7,7 @@ The app reads two local files:
 - `/ext/user_assets/commute-bar/events-a.bin`
 - `/ext/user_assets/commute-bar/events-b.bin`
 
-It selects the newest valid snapshot when opened and checks again after 60 seconds without input. Turn the wheel to browse at most 20 events, press OK for details, and press Back to return. Cached data older than one hour is labeled stale.
+It selects the newest valid snapshot when opened and checks again after 60 seconds without input. Turn the wheel to browse at most 20 events, press OK for details, and press Back to return. The front scrolls each event's name, date, and start time at a slower reading speed beside its icon. Cached data older than one hour is labeled stale.
 
 Snapshots use a fixed-size, credential-free format with strict lengths, NUL-terminated strings, and CRC32 validation. The Python publisher uploads the inactive A/B slot and records it only after the upload succeeds. Invalid or partial data does not replace the in-memory schedule.
 

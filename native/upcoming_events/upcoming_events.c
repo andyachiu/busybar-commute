@@ -11,6 +11,7 @@
 
 #define SNAPSHOT_A EXT_PATH("user_assets/commute-bar/events-a.bin")
 #define SNAPSHOT_B EXT_PATH("user_assets/commute-bar/events-b.bin")
+#define FRONT_SCROLL_SPEED 20
 
 typedef struct {
   Gui *gui;
@@ -78,7 +79,7 @@ static void render(Browser *app) {
       time_t now = time_get_timestamp();
       bool stale =
           now < app->snapshot.fetched || now - app->snapshot.fetched > 3600;
-      label_set_text(app->front, row->title);
+      label_set_text_fmt(app->front, "%s - %s", row->title, row->timing);
       set_icon(app, row->kind);
       if (app->details) {
         label_set_text_fmt(
@@ -128,6 +129,7 @@ int32_t upcoming_events_entry(void *argument) {
     widget_set_pos(label_get_base(app->front), 18, 0);
     widget_set_size(label_get_base(app->front), 54, 16);
     label_set_long_content_mode(app->front, LabelLongContentModeScrollCircular);
+    label_set_long_content_anim_speed(app->front, FRONT_SCROLL_SPEED);
     app->back = label_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdBack));
     widget_set_size(label_get_base(app->back), 160, 80);
     label_set_text_font_size(app->back, LabelFontSizeSmall);
