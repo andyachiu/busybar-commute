@@ -11,7 +11,7 @@
 
 #define SNAPSHOT_A EXT_PATH("user_assets/commute-bar/events-a.bin")
 #define SNAPSHOT_B EXT_PATH("user_assets/commute-bar/events-b.bin")
-#define FRONT_SCROLL_SPEED 20
+#define FRONT_SCROLL_SPEED 25
 
 typedef struct {
   Gui *gui;
