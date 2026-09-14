@@ -83,14 +83,18 @@ Provisioning starts in preview mode. Connect a BUSY Bar-scoped cloud token throu
 The native app is a source overlay for official BUSY Bar firmware 1.2.4 at commit `b315346d2d0a686c5fada9e972bc688e85bd4137`. It is not a standalone binary and this repository does not distribute compiled firmware.
 
 ```sh
-git clone --branch 1.2.4 https://github.com/busy-app/busybar-firmware.git /tmp/busybar-firmware
+git clone --recursive --branch 1.2.4 https://github.com/busy-app/busybar-firmware.git /tmp/busybar-firmware
 git -C /tmp/busybar-firmware checkout b315346d2d0a686c5fada9e972bc688e85bd4137
+git -C /tmp/busybar-firmware submodule update --init --recursive
 python3 native/prepare.py /tmp/busybar-firmware
 cd /tmp/busybar-firmware
 ./fbt TARGET_HW=22 FIRMWARE_ORIGIN=CommuteBar
 ```
 
 Confirm your bar's hardware target and follow BUSY's official firmware instructions before flashing. A successful build alone does not establish device compatibility. See [native/README.md](native/README.md) for the cache format and interaction model.
+
+> [!WARNING]
+> **Open issue (2026-09-14):** flashing a self-built image left the reference device with a working display and USB API but a **non-functional Wi-Fi radio** (`GET /api/wifi/networks` returns `503`). Root cause is not yet confirmed. Read [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) before flashing, and always verify Wi-Fi afterward while a known-good network is still in reach.
 
 ## Privacy and safety boundaries
 

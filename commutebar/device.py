@@ -1,4 +1,4 @@
-"""BUSY Bar HTTP API 24.3.0 adapter, verified against the connected USB schema."""
+"""BUSY Bar HTTP API 27.5.0 adapter, verified against the connected USB schema."""
 import json
 import textwrap
 from urllib.parse import urlencode
