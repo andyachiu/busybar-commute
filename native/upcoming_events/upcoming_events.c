@@ -137,7 +137,7 @@ int32_t upcoming_events_entry(void *argument) {
     widget_set_pos(label_get_base(app->front), 18, 0);
     widget_set_size(label_get_base(app->front), 54, 16);
     label_set_text_font_size(app->front, LabelFontSizeSmall);
-    label_set_line_spacing(app->front, 1);
+    label_set_line_spacing(app->front, -2);
     label_set_long_content_mode(app->front, LabelLongContentModeScrollCircular);
     label_set_long_content_anim_speed(app->front, FRONT_SCROLL_SPEED);
     app->back = label_alloc(gui_layer_get_root_widget(layer, GuiDisplayIdBack));
