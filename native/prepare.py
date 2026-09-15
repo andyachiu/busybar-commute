@@ -39,4 +39,26 @@ else:
         r'(\[AppsMenuEntryIdxUpcoming\][\s\S]*?\.front = APPS_MENU_IMG_PATH\(")\w+_front_8x8(\.image"\),[\s\S]*?\.back = APPS_MENU_IMG_PATH\(")\w+_back_11x11(\.image"\),)',
         r'\1upcoming_front_8x8\2upcoming_back_11x11\3', text, count=1)
 source.write_text(text)
+
+updater = root / 'applications/system/updater/updater.c'
+updater_text = updater.read_text()
+if 'PowerRebootNormalU5' in updater_text:
+    updater.write_text(updater_text.replace(
+        'power_reboot(instance->power, PowerRebootNormalU5);',
+        'power_reboot(instance->power, PowerRebootNormal);'
+    ))
+
+api_wifi = root / 'applications/services/web_server/http_api/api_wifi.c'
+api_wifi_text = api_wifi.read_text()
+target_disconnect = '''        status = wifi_disconnect(wifi);
+        if(status != WifiStatusOk) {
+            break;
+        }'''
+replacement_disconnect = '''        status = wifi_disconnect(wifi);
+        if(status != WifiStatusOk && status != WifiStatusAlreadyDisconnected) {
+            break;
+        }'''
+if target_disconnect in api_wifi_text:
+    api_wifi.write_text(api_wifi_text.replace(target_disconnect, replacement_disconnect))
+
 print('Prototype overlay prepared. Device unchanged.')

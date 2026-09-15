@@ -1,8 +1,18 @@
 # Troubleshooting
 
-## Open issue: Wi-Fi scan returns no networks after flashing a self-built firmware
+## Resolved: Wi-Fi scan returns no networks after flashing a self-built firmware
 
-**Status:** unresolved as of 2026-09-14. Device is functional over USB; Wi-Fi is not.
+**Status:** Resolved as of 2026-09-14. Device and Wi-Fi are fully functional.
+
+### Resolution & Root Cause
+The radio hardware and custom firmware overlay were never broken. 
+1. The firmware rejects Wi-Fi scanning while associated to an AP (`[WifiStatusScanNotPossible] = {.code = 400, "Scan not possible when connected"}`).
+2. `./fbt flash_usb` updates only the STM32 main MCU without power-cycling the Silicon Labs Si917 wireless coprocessor.
+3. Because the BusyBar runs on an internal battery, unplugging USB did not power off the device. The coprocessor retained an associated/connecting state across the MCU flash, causing the scan endpoint to return `Scan not possible when connected` (or `Generic error` if connection failed), resulting in zero networks in the companion app.
+4. After a cold restart and issuing `POST /api/wifi/disconnect`, `/api/wifi/networks` successfully returned all visible networks (13 networks scanned).
+
+See [UPSTREAM-PROPOSAL.md](UPSTREAM-PROPOSAL.md) for the upstream firmware fixes for `updater.c` and `api_wifi.c`.
+
 
 ### Symptom
 
@@ -67,9 +77,15 @@ All of the following were considered and eliminated. The failure is entirely dev
 > containing `connectivity_firmware/*.rps` coprocessor images) — but `fbt` would have
 > fetched it anyway.
 
-### Leading theory (unverified)
+### Intercom (Si917) version mismatch (confirmed 2026-09-14)
 
-**Intercom (Si917) version mismatch.**
+**Confirmed.** A main-MCU image built from a commit other than the coprocessor's logs
+`[E][IntercomSync] Handshake failure, possible version mismatch` in `/ext/log.txt`, suspends
+the intercom service, and leaves `/api/wifi/status` at `unknown`. The intercom control
+string defaults to the build's git hash, and `flash_usb` never updates the Si917, so build
+from the exact commit the device reports as `intercom_version`. Passing
+`INTERCOM_FORCE_VERSION=<that hash>` to `./fbt` also pins the handshake. The original
+analysis follows.
 
 The upstream firmware README documents an `INTERCOM_FORCE_VERSION` variable used to
 "override the intercom (Si917) version check." A dedicated escape hatch implies version
@@ -82,7 +98,7 @@ Supporting hint: the device reports `intercom_version` as `b315346d` — a **git
 hash**, not a version string — alongside `nwp_version` `1611.2.1.1.255.11.71`, which does
 not match the WiSeConnect SDK's `2.15.5.1.x.x` scheme.
 
-This has **not** been confirmed. Treat it as a starting point, not a conclusion.
+This was later confirmed; see above.
 
 ---
 
